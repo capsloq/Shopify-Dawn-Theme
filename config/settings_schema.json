@@ -4,8 +4,8 @@
     "theme_name": "Dawn",
     "theme_version": "5.0.0",
     "theme_author": "Shopify",
-    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
-    "theme_support_url": "https://support.shopify.com/"
+    "theme_documentation_url": "https:\/\/help.shopify.com\/manual\/online-store\/themes",
+    "theme_support_url": "https:\/\/support.shopify.com\/"
   },
   {
     "name": "t:settings_schema.colors.name",
@@ -1145,49 +1145,21 @@
     ]
   },
   {
-    "name": "t:settings_schema.cart.name",
+    "name": "t:settings_schema.capsloq_settings.name",
     "settings": [
       {
-        "type": "select",
-        "id": "cart_type",
-        "options": [
-          {
-            "value": "drawer",
-            "label": "t:settings_schema.cart.settings.cart_type.drawer.label"
-          },
-          {
-            "value": "page",
-            "label": "t:settings_schema.cart.settings.cart_type.page.label"
-          },
-          {
-            "value": "notification",
-            "label": "t:settings_schema.cart.settings.cart_type.notification.label"
-          }
-        ],
-        "default": "notification",
-        "label": "t:settings_schema.cart.settings.cart_type.label"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_vendor",
-        "label": "t:settings_schema.cart.settings.show_vendor.label",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "show_cart_note",
-        "label": "t:settings_schema.cart.settings.show_cart_note.label",
-        "default": false
-      },
-      {
         "type": "header",
-        "content": "t:settings_schema.cart.settings.cart_drawer.header"
+        "content": "t:settings_schema.capsloq_settings.settings.content"
       },
       {
-        "type": "collection",
-        "id": "cart_drawer_collection",
-        "label": "t:settings_schema.cart.settings.cart_drawer.collection.label",
-        "info": "t:settings_schema.cart.settings.cart_drawer.collection.info"
+        "type": "paragraph",
+        "content": "t:settings_schema.capsloq_settings.settings.paragraph"
+      },
+      {
+        "type": "checkbox",
+        "id": "capsloq_settings_enabled",
+        "label": "t:settings_schema.capsloq_settings.settings.capsloq_settings_enabled.label",
+        "default": true
       }
     ]
   }

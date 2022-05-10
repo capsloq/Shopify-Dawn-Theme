@@ -30,7 +30,13 @@
     <link id="ModelViewerStyle" rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css" media="print" onload="this.media='all'">
     <link id="ModelViewerOverride" rel="stylesheet" href="{{ 'component-model-viewer-ui.css' | asset_url }}" media="print" onload="this.media='all'">
   {%- endif -%}
+  {% if section.settings.capsloq_settings == false %}
+    <div> Es Funktionieret nicht </div>
+  {% endif %}
 
+  {% if settings.capsloq_settings_enabled == true %}
+    <div> currency_code_enabled aus theme settings </div>
+  {% endif %}
   <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
     <div class="grid__item product__media-wrapper">
       <media-gallery id="MediaGallery-{{ section.id }}" role="region" {% if section.settings.enable_sticky_info %}class="product__media-gallery"{% endif %} aria-label="{{ 'products.product.media.gallery_viewer' | t }}" data-desktop-layout="{{ section.settings.gallery_layout }}">
@@ -65,14 +71,8 @@
             {%- for media in product.media -%}
               {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
                 <li id="Slide-{{ section.id }}-{{ media.id }}" class="product__media-item grid__item slider__slide{% if product.selected_or_first_available_variant.featured_media == null and forloop.index == 1 %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains media.src %} product__media-item--variant{% endif %}" data-media-id="{{ section.id }}-{{ media.id }}">
-                  {%- liquid
-                    assign media_position = media_position | default: 0 | plus: 1
-                    assign lazy_load = false
-                    if media_position > 1
-                      assign lazy_load = true
-                    endif
-                    render 'product-thumbnail', media: media, position: media_position, loop: section.settings.enable_video_looping, modal_id: section.id, xr_button: true, media_width: media_width, lazy_load: lazy_load
-                  -%}
+                  {%- assign media_position = media_position | default: 0 | plus: 1 -%}
+                  {% render 'product-thumbnail', media: media, position: media_position, loop: section.settings.enable_video_looping, modal_id: section.id, xr_button: true, media_width: media_width, lazy_load: true %}
                 </li>
               {%- endunless -%}
             {%- endfor -%}
@@ -347,6 +347,7 @@
                                 form="{{ product_form_id }}"
                                 {% if option.selected_value == value %}checked{% endif %}
                           >
+
                           <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
                             {{ value }}
                           </label>
@@ -411,7 +412,7 @@
             </noscript>
           {%- when 'buy_buttons' -%}
             <div {{ block.shopify_attributes }}>
-              <product-form class="product-form" data-cart-type="{{ settings.cart_type }}">
+              <product-form class="product-form">
                 <div class="product-form__error-message-wrapper" role="alert" hidden>
                   <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
                     <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
@@ -429,7 +430,7 @@
                       type="submit"
                       name="add"
                       class="product-form__submit button button--full-width {% if block.settings.show_dynamic_checkout and product.selling_plan_groups == empty %}button--secondary{% else %}button--primary{% endif %}"
-                      {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                    {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
                     >
                         <span>
                           {%- if product.selected_or_first_available_variant.available -%}
@@ -607,7 +608,7 @@
         "sku": {{ product.selected_or_first_available_variant.sku | json }},
       {%- endif %}
       "brand": {
-        "@type": "Brand",
+        "@type": "Thing",
         "name": {{ product.vendor | json }}
       },
       "offers": [
@@ -616,15 +617,6 @@
             "@type" : "Offer",
             {%- if variant.sku != blank -%}
               "sku": {{ variant.sku | json }},
-            {%- endif -%}
-            {%- if variant.barcode.size == 12 -%}
-              "gtin12": {{ variant.barcode }},
-            {%- endif -%}
-            {%- if variant.barcode.size == 13 -%}
-              "gtin13": {{ variant.barcode }},
-            {%- endif -%}
-            {%- if variant.barcode.size == 14 -%}
-              "gtin14": {{ variant.barcode }},
             {%- endif -%}
             "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
             "price" : {{ variant.price | divided_by: 100.00 | json }},
@@ -1108,6 +1100,12 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "checkbox",
+      "id": "capsloq_settings",
+      "default": false,
+      "label": "t:sections.main-product.settings.capsloq_settings.label"
     }
   ]
 }
