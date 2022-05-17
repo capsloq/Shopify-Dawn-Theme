@@ -96,7 +96,7 @@
     "predictive_search_show_vendor": false,
     "predictive_search_show_price": false,
     "currency_code_enabled": true,
-    "color_swatch_config": "",
+    "color_swatch_config": "Blau:#0000ff\nRot:#ff0000\nSchwarz:#000000\nGrün:azur-ozeanblau.png",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",

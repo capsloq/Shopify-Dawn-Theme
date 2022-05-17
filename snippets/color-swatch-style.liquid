@@ -2,17 +2,42 @@
 {%- assign color_swatch_style = 'background-color: ' | append: color_value_downcase -%}
 
 {%- for color_swatch_item in color_swatch_config -%}
+    
   {%- assign color_swatch_parts = color_swatch_item | split: ':' -%}
   {%- assign color_swatch_name = color_swatch_parts.first | downcase | strip -%}
 
   {%- if color_value_downcase == color_swatch_name -%}
     {%- assign color_swatch_value = color_swatch_parts.last | strip -%}
 
-    {%- if color_swatch_value contains '#' -%}
-      {%- assign color_swatch_style = 'background-color: ' | append: color_swatch_value -%}
-    {%- elsif images[color_swatch_value] != blank -%}
-      {%- assign color_swatch_image = images[color_swatch_value] | img_url: '72x72' -%}
-      {%- assign color_swatch_style = 'background-image: url(' | append: color_swatch_image | append: ')' -%}
+    {%- if collection == "true" -%}
+        {%- if color_swatch_value contains '#' -%}
+            {%- capture color_swatch_style %} 
+               <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <rect width="16" height="16" stroke="currentColor" fill="{{ color_swatch_value }}" stroke-width="1"></rect>
+                  </svg>
+                {% endcapture %}
+          {%- elsif images[color_swatch_value] != blank -%}
+            {%- assign color_swatch_image = images[color_swatch_value] | img_url: '72x72' -%}
+            {%- assign color_swatch_style = 
+                '<svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+
+                    <defs>
+                        <pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="100">
+                          <image href="wall.jpg" x="0" y="0" width="100" height="100" />
+                        </pattern>
+                      </defs>                        
+
+                    <rect width="16" height="16" stroke="currentColor" fill="url(#img1)" stroke-width="1"></rect>
+                  </svg>'
+            -%}
+          {%- endif -%}
+        {%- else -%}
+        {%- if color_swatch_value contains '#' -%}
+            {%- assign color_swatch_style = 'background-color: ' | append: color_swatch_value -%}
+          {%- elsif images[color_swatch_value] != blank -%}
+            {%- assign color_swatch_image = images[color_swatch_value] | img_url: '72x72' -%}
+            {%- assign color_swatch_style = 'background-image: url(' | append: color_swatch_image | append: ')' -%}
+          {%- endif -%}
     {%- endif -%}
 
     {%- break -%}
