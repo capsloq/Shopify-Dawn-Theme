@@ -334,6 +334,11 @@
                       <fieldset class="js product-form__input">
                         <legend class="form__label">{{ option.name }}</legend>
                         {%- for value in option.values -%}
+                          {% comment %} Zomh Product Colorswatch mit Möglichkeit für Bilder{% endcomment %}
+                          {%- assign downcase_value = value | downcase -%}
+                          {%- assign color_swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />' -%}
+                           {% comment %} Zomh Product Colorswatch mit Möglichkeit für Bilder{% endcomment %}
+
                           <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
                                 name="{{ option.name }}"
                                 value="{{ value | escape }}"
@@ -344,7 +349,7 @@
                             {% comment %} Zomh Product Colorswatch mit Möglichkeit für Bilder{% endcomment %}
                           {% if option.name == 'Color' or option.name == 'Colour' or option.name == 'Farbe' %}
                                                  
-                            <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="colorCircle {% if option.selected_value == value %}checkedCircle{% endif %}" data-tooltip="{{ value | escape }}" style="{% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value %}">
+                            <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="colorCircle" data-tooltip="{{ value | escape }}" style="{% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value %}">
                             &nbsp
                           </label>
                           {% else %}

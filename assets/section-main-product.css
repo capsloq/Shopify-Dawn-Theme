@@ -225,7 +225,7 @@ fieldset.product-form__input .form__label {
 .colorCircle{
   width: 20px;
   height: 42px;
-  border: 1px solid white !important;
+  border: 1px solid black !important;
   border-radius: 9999px !important;
   background-position: center;
   background-color: rgb(var(--color-foreground));
@@ -233,7 +233,7 @@ fieldset.product-form__input .form__label {
 }
 /*Zomh Product Color Swatch Zeile 231*/
 .product-form__input input[type='radio']:checked + .colorCircle {
-  border: 2px solid white !important;
+  border: 2px solid black !important;
 }
 
 @media screen and (forced-colors: active) {
