@@ -1145,21 +1145,13 @@
     ]
   },
   {
-    "name": "t:settings_schema.capsloq_settings.name",
+    "name": "Color Swatch",
     "settings": [
       {
-        "type": "header",
-        "content": "t:settings_schema.capsloq_settings.settings.content"
-      },
-      {
-        "type": "paragraph",
-        "content": "t:settings_schema.capsloq_settings.settings.paragraph"
-      },
-      {
-        "type": "checkbox",
-        "id": "capsloq_settings_enabled",
-        "label": "t:settings_schema.capsloq_settings.settings.capsloq_settings_enabled.label",
-        "default": true
+        "type": "textarea",
+        "id": "color_swatch_config",
+        "label": "Color Swatch Konfiguration",
+        "info": "Jede Regel muss in einer Zeile eingetragen werden, dannach drücken Sie Enter. Geben Sie den Namen der Farbvariante an, setzten Sie einen Doppelpunkt und dannach gleich die Farbe als HEX-Code oder Ihr in Shopify hinterlegtes Bild als .png oder .jpg | Beispiel: HellBlau:#0000aa oder Rot:rot.png"
       }
     ]
   }

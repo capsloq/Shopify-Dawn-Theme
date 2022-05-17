@@ -221,6 +221,21 @@ fieldset.product-form__input .form__label {
   color: rgb(var(--color-background));
 }
 
+/*Zomh Product Color Swatch  Zeile 221*/
+.colorCircle{
+  width: 20px;
+  height: 42px;
+  border: 1px solid white !important;
+  border-radius: 9999px !important;
+  background-position: center;
+  background-color: rgb(var(--color-foreground));
+   
+}
+/*Zomh Product Color Swatch Zeile 231*/
+.product-form__input input[type='radio']:checked + .colorCircle {
+  border: 2px solid white !important;
+}
+
 @media screen and (forced-colors: active) {
   .product-form__input input[type=radio]:checked + label {
     text-decoration: underline;

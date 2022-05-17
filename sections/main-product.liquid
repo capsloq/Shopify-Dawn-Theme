@@ -30,13 +30,6 @@
     <link id="ModelViewerStyle" rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css" media="print" onload="this.media='all'">
     <link id="ModelViewerOverride" rel="stylesheet" href="{{ 'component-model-viewer-ui.css' | asset_url }}" media="print" onload="this.media='all'">
   {%- endif -%}
-  {% if section.settings.capsloq_settings == false %}
-    <div> Es Funktionieret nicht </div>
-  {% endif %}
-
-  {% if settings.capsloq_settings_enabled == true %}
-    <div> currency_code_enabled aus theme settings </div>
-  {% endif %}
   <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
     <div class="grid__item product__media-wrapper">
       <media-gallery id="MediaGallery-{{ section.id }}" role="region" {% if section.settings.enable_sticky_info %}class="product__media-gallery"{% endif %} aria-label="{{ 'products.product.media.gallery_viewer' | t }}" data-desktop-layout="{{ section.settings.gallery_layout }}">
@@ -347,10 +340,21 @@
                                 form="{{ product_form_id }}"
                                 {% if option.selected_value == value %}checked{% endif %}
                           >
-
-                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-                            {{ value }}
+                          
+                            {% comment %} Zomh Product Colorswatch mit Möglichkeit für Bilder{% endcomment %}
+                          {% if option.name == 'Color' or option.name == 'Colour' or option.name == 'Farbe' %}
+                                                 
+                            <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="colorCircle {% if option.selected_value == value %}checkedCircle{% endif %}" data-tooltip="{{ value | escape }}" style="{% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value %}">
+                            &nbsp
                           </label>
+                          {% else %}
+                          
+                            <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                              {{ value }}
+                            </label>
+                          {% endif %}
+                            {% comment %} Zomh Product Colorswatch mit Möglichkeit für Bilder{% endcomment %}
+                          
                         {%- endfor -%}
                       </fieldset>
                   {%- endfor -%}
