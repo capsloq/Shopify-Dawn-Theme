@@ -142,26 +142,28 @@
                                 {% if value.count == 0 and value.active == false %}disabled{% endif %}
                               >
                                 
-                                {% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value.label, collection: "true" %}
+                                {% if filter.label == 'Color' or filter.label == 'Colour' or filter.label == 'Farbe' %}
+                                      {% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value.label, collection: "true" %}
                               {% comment %}Zomh If Bedingung in <rect> mit Prfüung auf Color, Colour, Farbe, dann html Farbe in Checkbox, ansonsten keine{% endcomment %}
-                              
-                              <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                                <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
-                              </svg>
+                                {% else %}
+                                      <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                        <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
+                                      </svg>
 
-                              <svg class="icon icon-checkmark"
-                                width="1.1rem"
-                                height="0.7rem"
-                                viewBox="0 0 11 7"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
+                                      <svg class="icon icon-checkmark"
+                                        width="1.1rem"
+                                        height="0.7rem"
+                                        viewBox="0 0 11 7"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
 
-                                <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                  stroke="currentColor"
-                                  stroke-width="1.75"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round" />
-                              </svg>
+                                        <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
+                                          stroke="currentColor"
+                                          stroke-width="1.75"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round" />
+                                      </svg>
+                            {% endif %}
 
                               
                               
