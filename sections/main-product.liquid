@@ -335,7 +335,6 @@
                         <legend class="form__label">{{ option.name }}</legend>
                         {%- for value in option.values -%}
                           {% comment %} Zomh Product Colorswatch mit Möglichkeit für Bilder{% endcomment %}
-                          {%- assign downcase_value = value | downcase -%}
                           {%- assign color_swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />' -%}
                            {% comment %} Zomh Product Colorswatch mit Möglichkeit für Bilder{% endcomment %}
 

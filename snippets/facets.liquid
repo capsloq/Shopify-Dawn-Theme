@@ -108,29 +108,11 @@
                     <fieldset class="facets-wrap parent-wrap {% if filter_type == 'vertical' %} facets-wrap-vertical{% endif %}">
                       <legend class="visually-hidden">{{ filter.label | escape }}</legend>
                       <ul class="{% if filter_type != 'vertical' %} facets__list{% endif %} list-unstyled no-js-hidden" role="list">
+                        {% comment %}Zomh definieren der color_swatch_config aus den setting im Theme{% endcomment %}
                         {%- assign color_swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />' -%}
+                        {% comment %}Zomh definieren der color_swatch_config aus den setting im Theme{% endcomment %}
                         {%- for value in filter.values -%}
-                         
-
-
-                          {% comment %}
-                            <li class="HorizontalList__Item">
-                              {%- capture value_id -%}@@@@-{{ value.param_name | append: value.value | handle }}{%- endcapture -%}
-                              {% echo value_id %}
-                              <input id="{{ value_id | escape }}" class="ColorSwatch__Radio" type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" {% if value.active %}checked="checked"{% endif %}>
-    
-                              <label for="{{ value_id | escape }}" class="ColorSwatch" data-tooltip="{{ value.label | escape }}" style="{% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value.label %}">
-                                <span class="u-visually-hidden">{{ value.label }}</span>
-                              </label>
-                            </li>
-                          {% endcomment %}
-
-
-
-
-
-                          {% comment %}Zomh aasign Color Variable{% endcomment %}
-                          
+   
                         {% assign color_value = value.value %}
                           <li class="list-menu__item facets__item{% if forloop.index > 10 and filter_type == 'vertical' %} show-more-item hidden{% endif %}">
                             <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="facet-checkbox{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}">
@@ -141,10 +123,10 @@
                                 {% if value.active %}checked{% endif %}
                                 {% if value.count == 0 and value.active == false %}disabled{% endif %}
                               >
-                                
+                                {% comment %}Zomh If Bedingung in <rect> mit Prfüung auf Color, Colour, Farbe, dann html Farbe in Checkbox, ansonsten keine{% endcomment %}
                                 {% if filter.label == 'Color' or filter.label == 'Colour' or filter.label == 'Farbe' %}
                                       {% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value.label, collection: "true" %}
-                              {% comment %}Zomh If Bedingung in <rect> mit Prfüung auf Color, Colour, Farbe, dann html Farbe in Checkbox, ansonsten keine{% endcomment %}
+                              
                                 {% else %}
                                       <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
                                         <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
@@ -164,6 +146,7 @@
                                           stroke-linejoin="round" />
                                       </svg>
                             {% endif %}
+                            {% comment %}Zomh If Bedingung in <rect> mit Prfüung auf Color, Colour, Farbe, dann html Farbe in Checkbox, ansonsten keine{% endcomment %}
 
                               
                               
@@ -188,23 +171,30 @@
                                 {% if value.count == 0 and value.active == false %}disabled{% endif %}
                               >
 
-                              <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                                <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
-                              </svg>
+                              {% comment %}Zomh If Bedingung in <rect> mit Prfüung auf Color, Colour, Farbe, dann html Farbe in Checkbox, ansonsten keine{% endcomment %}
+                              {% if filter.label == 'Color' or filter.label == 'Colour' or filter.label == 'Farbe' %}
+                                {% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value.label, collection: "true" %}
+                        
+                             {% else %}
+                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                  <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
+                                </svg>
 
-                              <svg class="icon icon-checkmark"
-                                width="1.1rem"
-                                height="0.7rem"
-                                viewBox="0 0 11 7"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
+                                <svg class="icon icon-checkmark"
+                                  width="1.1rem"
+                                  height="0.7rem"
+                                  viewBox="0 0 11 7"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
 
-                                <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                  stroke="currentColor"
-                                  stroke-width="1.75"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round" />
-                              </svg>
+                                  <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
+                                    stroke="currentColor"
+                                    stroke-width="1.75"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                </svg>
+                              {% endif %}
+                              {% comment %}Zomh If Bedingung in <rect> mit Prfüung auf Color, Colour, Farbe, dann html Farbe in Checkbox, ansonsten keine{% endcomment %}
 
                               <span aria-hidden="true">{{ value.label | escape }} ({{ value.count }})</span>
                               <span class="visually-hidden">{{ value.label | escape }} ({% if value.count == 1 %}{{ 'products.facets.product_count_simple.one' | t: count: value.count }}{% else %}{{ 'products.facets.product_count_simple.other' | t: count: value.count }}{% endif %})</span>
@@ -491,6 +481,8 @@
                           {% render 'icon-arrow' %}
                           {{ filter.label | escape }}
                         </button>
+
+
                         <ul class="mobile-facets__list list-unstyled" role="list">
                           {%- assign color_swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />' -%}
                           {%- for value in filter.values -%}
@@ -505,14 +497,32 @@
   
                                   <span class="mobile-facets__highlight"></span>
                                 {% comment %}Zomh If Bedingung in <rect> mit Prfüung auf Color, Colour, Farbe, dann html Farbe in Checkbox, ansonsten keine{% endcomment %}
-                                  <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                                    <rect width="16" height="16" stroke="currentColor" {% if filter.label == 'Color' or filter.label == 'Colour' or filter.label == 'Farbe' %}fill="{% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value.label %}" {% else %}fill="none" {% endif %}  stroke-width="1"></rect>
-                                  </svg>
-  
-                                  <svg class="icon icon-checkmark" width="1.1rem" height="0.7rem" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-                                  </svg>
-  
+
+
+                                {% comment %}Zomh If Bedingung in <rect> mit Prfüung auf Color, Colour, Farbe, dann html Farbe in Checkbox, ansonsten keine{% endcomment %}
+                              {% if filter.label == 'Color' or filter.label == 'Colour' or filter.label == 'Farbe' %}
+                                {% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value.label, collection: "true" %}
+                        
+                             {% else %}
+                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                  <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
+                                </svg>
+
+                                <svg class="icon icon-checkmark"
+                                  width="1.1rem"
+                                  height="0.7rem"
+                                  viewBox="0 0 11 7"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+
+                                  <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
+                                    stroke="currentColor"
+                                    stroke-width="1.75"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                </svg>
+                              {% endif %}
+                              {% comment %}Zomh If Bedingung in <rect> mit Prfüung auf Color, Colour, Farbe, dann html Farbe in Checkbox, ansonsten keine{% endcomment %}
                                   
                                   <span aria-hidden="true">{{ value.label | escape }} ({{ value.count }})</span>
                                   <span class="visually-hidden">{{ value.label | escape }} ({% if value.count == '1' %}{{ 'products.facets.product_count_simple.one' | t: count: value.count }}{% else %}{{ 'products.facets.product_count_simple.other' | t: count: value.count }}{% endif %})</span>
@@ -520,6 +530,8 @@
                               </li>
                             {%- endfor -%}
                         </ul>
+
+
 
                         <div class="no-js-hidden mobile-facets__footer gradient">
                           <facet-remove class="mobile-facets__clear-wrapper">
